@@ -3,7 +3,7 @@ import './App.css';
 import React from 'react';
 import { Message } from './components/Message/Message';
 
-const messageText = "Привет вам, коллеги по курсу React.JS!";
+const messageText = "Привет вам, коллеги по курсу ReactJS!";
 const altMessageText = "Рад всех вас видеть!";
 
 function App() {
