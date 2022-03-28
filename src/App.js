@@ -1,17 +1,53 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Message } from './components/Message/Message';
+import { Form } from './components/Form/Form';
 
-const messageText = "Привет вам, коллеги по курсу ReactJS!";
-const altMessageText = "Рад всех вас видеть!";
+const name = "me";
+const botName = "bot";
+
+const messageList = [];
 
 function App() {
+  const [messages, setMessages] = useState(messageList);
+
+  useEffect(() => {
+
+    let timeoutId;
+    
+    if (messages.length !== 0 && messages[messages.length - 1].author !== botName) {
+      timeoutId = setTimeout(() => {
+        setMessages([...messages, { 
+          id: messages.length,
+          text: "Hello! I'm your virtual assistant. Nice to meet you.",
+          author: botName, 
+        }]);
+      }, 1500); 
+    }
+
+    return () => {
+      if (timeoutId) {
+        // console.log(timeoutId);
+        clearTimeout(timeoutId);
+      }
+    };
+
+  }, [messages]);
+
+  const addMessage = (newText) => {
+    setMessages([...messages, { id: messages.length, text: newText, author: name }]);
+  };
+
   return (
-    <div className="App">
-      <Message message={messageText} />
-      <Message message={altMessageText} />
-    </div>
+    <React.Fragment>
+      <div className="App">
+        {messages.map((message) => 
+          <Message key={message.id} text={message.text} author={message.author} />
+        )}
+        <Form onSubmit={addMessage} />
+      </div>
+    </React.Fragment>
   );
 }
 

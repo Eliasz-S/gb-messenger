@@ -1,9 +1,10 @@
 import './Message.styles.css';
 
-export const Message = ({ message }) => {
+export const Message = ({ author, text }) => {
     return (
         <h3 className="message">
-            {message}
+            <span>{author}: </span>
+            <span>{text}</span>
         </h3>
     );
 };
