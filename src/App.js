@@ -1,28 +1,57 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Message } from './components/Message/Message';
 import { Form } from './components/Form/Form';
-
-const name = "me";
-const botName = "bot";
+import { AUTHORS } from './components/utils/constants';
+import { MessageList } from './components/MessageList/MessageList';
+import { ChatList } from './components/ChatList/ChatList';
 
 const messageList = [];
+const chatList = [
+  {
+    id: "e4tsancmsl",
+    name: "Richard Adams",
+  },
+  {
+    id: "e4tsancmsq",
+    name: "Jenna Richards",
+  },
+  {
+    id: "e4tsancmsy",
+    name: "Maria Antonova",
+  },
+  {
+    id: "e4tsancmed",
+    name: "Vasiliy Detochkin",
+  },
+];
 
 function App() {
   const [messages, setMessages] = useState(messageList);
+
+  const addMessage = (newMessage) => {
+    setMessages([...messages, newMessage]);
+  };
+
+  const sendMessage = (text) => {
+    addMessage({
+      author: AUTHORS.human,
+      text,
+      id: `msg-${Date.now()}`,
+    });
+  };
 
   useEffect(() => {
 
     let timeoutId;
     
-    if (messages.length !== 0 && messages[messages.length - 1].author !== botName) {
+    if (messages[messages.length - 1]?.author === AUTHORS.human) {
       timeoutId = setTimeout(() => {
-        setMessages([...messages, { 
-          id: messages.length,
+        addMessage({
+          id: `msg-${Date.now()}`,
           text: "Hello! I'm your virtual assistant. Nice to meet you.",
-          author: botName, 
-        }]);
+          author: AUTHORS.robot, 
+        })
       }, 1500); 
     }
 
@@ -35,17 +64,14 @@ function App() {
 
   }, [messages]);
 
-  const addMessage = (newText) => {
-    setMessages([...messages, { id: messages.length, text: newText, author: name }]);
-  };
-
   return (
     <React.Fragment>
       <div className="App">
-        {messages.map((message) => 
-          <Message key={message.id} text={message.text} author={message.author} />
-        )}
-        <Form onSubmit={addMessage} />
+        <ChatList chatList={chatList} />
+        <div className="App-chat-section">
+          <MessageList messages={messages} />
+          <Form onSubmit={sendMessage} />
+        </div>
       </div>
     </React.Fragment>
   );

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -35,4 +37,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-chat-section {
+  position: absolute;
+  top: 0.5rem;
+  left: 25rem;
+  text-align: left;
+  width: 35rem;
 }
