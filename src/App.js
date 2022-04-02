@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form } from './components/Form/Form';
 import { AUTHORS } from './components/utils/constants';
 import { MessageList } from './components/MessageList/MessageList';
@@ -29,6 +29,8 @@ const chatList = [
 function App() {
   const [messages, setMessages] = useState(messageList);
 
+  const timeout = useRef;
+
   const addMessage = (newMessage) => {
     setMessages([...messages, newMessage]);
   };
@@ -42,11 +44,9 @@ function App() {
   };
 
   useEffect(() => {
-
-    let timeoutId;
     
     if (messages[messages.length - 1]?.author === AUTHORS.human) {
-      timeoutId = setTimeout(() => {
+      timeout.current = setTimeout(() => {
         addMessage({
           id: `msg-${Date.now()}`,
           text: "Hello! I'm your virtual assistant. Nice to meet you.",
@@ -56,10 +56,7 @@ function App() {
     }
 
     return () => {
-      if (timeoutId) {
-        // console.log(timeoutId);
-        clearTimeout(timeoutId);
-      }
+      clearTimeout(timeout.current);
     };
 
   }, [messages]);
