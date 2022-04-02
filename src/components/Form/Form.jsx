@@ -1,5 +1,6 @@
 import './Form.styles.css';
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Button, TextField } from '@mui/material';
 
 export const Form = ({ onSubmit }) => {
     const [ value, setValue ] = useState("");
@@ -13,12 +14,18 @@ export const Form = ({ onSubmit }) => {
 
     const handleChange = (event) => {
         setValue(event.target.value);
-    }
+    };
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <input className="input" value={value} onChange={handleChange} type="text" />
-            <input className="submit" type="submit" />
+        <form onSubmit={handleSubmit}>
+            <TextField sx={{ width: 3/4 }} variant="outlined" size="small" value={value} onChange={handleChange} inputRef={inputRef} />
+            <Button sx={{ width: 1/4, height: 40 }} type="submit" variant="contained">Send</Button>
         </form>
     )
 }
