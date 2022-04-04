@@ -11,32 +11,34 @@ const Profile = () => <h4>This is your profile page</h4>
 function App() {
   return (
     <BrowserRouter>
-      <ul>
-        <li>
-          <NavLink 
-            to="/"
-            style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink 
-            to="/chat"
-            style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
-          >
-            Chat
-          </NavLink>
-        </li>
-        <li>
-          <NavLink 
-            to="/profile"
-            style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
-          >
-            Profile
-          </NavLink>
-        </li>
-      </ul>
+      <header className='App-header'>
+        <ul>
+          <li>
+            <NavLink 
+              to="/"
+              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/chat"
+              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+            >
+              Chat
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/profile"
+              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+            >
+              Profile
+            </NavLink>
+          </li>
+        </ul>
+      </header>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/chat' element={<ChatList /> }>

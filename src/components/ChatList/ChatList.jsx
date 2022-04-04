@@ -1,3 +1,4 @@
+import './ChatList.styles.css';
 import { NavLink, Outlet } from "react-router-dom";
 import { Chat } from "../Chat/Chat"
 
@@ -24,7 +25,12 @@ export const ChatList = () => (
     <>
         <div>
             {chatList.map((chat) => (
-                <NavLink key={chat.id} to={`/chat/${chat.id}`}>
+                <NavLink 
+                    className="Chat-link" 
+                    style={({ isActive }) => ({ color: isActive ? "green" : "blue" })} 
+                    key={chat.id} 
+                    to={`/chat/${chat.id}`}
+                >
                     <Chat name={chat.name} />
                 </NavLink>
             ))}
