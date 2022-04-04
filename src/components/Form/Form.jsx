@@ -1,9 +1,12 @@
 import './Form.styles.css';
 import { useEffect, useRef, useState } from "react";
 import { Button, TextField } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 export const Form = ({ onSubmit }) => {
     const [ value, setValue ] = useState("");
+
+    const { id } = useParams();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,7 +23,7 @@ export const Form = ({ onSubmit }) => {
 
     useEffect(() => {
         inputRef.current?.focus();
-    }, []);
+    }, [id]);
 
     return (
         <form onSubmit={handleSubmit}>
