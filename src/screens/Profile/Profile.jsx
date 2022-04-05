@@ -1,0 +1,1 @@
+export const Profile = () => <h4>This is your profile page</h4>;

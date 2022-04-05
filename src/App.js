@@ -1,100 +1,54 @@
 // import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useRef, useState } from 'react';
-import { Form } from './components/Form/Form';
-import { AUTHORS } from './components/utils/constants';
-import { MessageList } from './components/MessageList/MessageList';
+import React from 'react';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Chat } from './screens/Chat/Chat';
 import { ChatList } from './components/ChatList/ChatList';
-
-const messageList = [];
-const chatList = [
-  {
-    id: "e4tsancmsl",
-    name: "Richard Adams",
-  },
-  {
-    id: "e4tsancmsq",
-    name: "Jenna Richards",
-  },
-  {
-    id: "e4tsancmsy",
-    name: "Maria Antonova",
-  },
-  {
-    id: "e4tsancmed",
-    name: "Vasiliy Detochkin",
-  },
-];
+import { isLinkActive } from './components/utils/styles';
+import { Home } from './screens/Home/Home';
+import { Profile } from './screens/Profile/Profile';
 
 function App() {
-  const [messages, setMessages] = useState(messageList);
-
-  const timeout = useRef;
-
-  const addMessage = (newMessage) => {
-    setMessages([...messages, newMessage]);
-  };
-
-  const sendMessage = (text) => {
-    addMessage({
-      author: AUTHORS.human,
-      text,
-      id: `msg-${Date.now()}`,
-    });
-  };
-
-  useEffect(() => {
-    
-    if (messages[messages.length - 1]?.author === AUTHORS.human) {
-      timeout.current = setTimeout(() => {
-        addMessage({
-          id: `msg-${Date.now()}`,
-          text: "Hello! I'm your virtual assistant. Nice to meet you.",
-          author: AUTHORS.robot, 
-        })
-      }, 1500); 
-    }
-
-    return () => {
-      clearTimeout(timeout.current);
-    };
-
-  }, [messages]);
-
   return (
-    <React.Fragment>
-      <div className="App">
-        <ChatList chatList={chatList} />
-        <div className="App-chat-section">
-          <MessageList messages={messages} />
-          <Form onSubmit={sendMessage} />
-        </div>
-      </div>
-    </React.Fragment>
+    <BrowserRouter>
+      <header className='App-header'>
+        <ul>
+          <li>
+            <NavLink 
+              to="/"
+              style={isLinkActive}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/chat"
+              style={isLinkActive}
+            >
+              Chat
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/profile"
+              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+            >
+              Profile
+            </NavLink>
+          </li>
+        </ul>
+      </header>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/chat' element={<ChatList /> }>
+          <Route path=':id' element={<Chat />} />
+        </Route>
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-// export class AppClass extends React.Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     )
-//   }
-// }
 
 export default App;
