@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { Form } from "../components/Form/Form";
-import { MessageList } from "../components/MessageList/MessageList";
-import { AUTHORS } from "../components/utils/constants";
+import { Form } from "../../components/Form/Form";
+import { MessageList } from "../../components/MessageList/MessageList";
+import { AUTHORS } from "../../components/utils/constants";
 
 const initMessages = {
   chat1: [],

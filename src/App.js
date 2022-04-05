@@ -2,11 +2,11 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Chat } from './screens/Chat';
+import { Chat } from './screens/Chat/Chat';
 import { ChatList } from './components/ChatList/ChatList';
-
-const Home = () => <h4>Home page</h4>;
-const Profile = () => <h4>This is your profile page</h4>
+import { isLinkActive } from './components/utils/styles';
+import { Home } from './screens/Home/Home';
+import { Profile } from './screens/Profile/Profile';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <li>
             <NavLink 
               to="/"
-              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+              style={isLinkActive}
             >
               Home
             </NavLink>
@@ -24,7 +24,7 @@ function App() {
           <li>
             <NavLink 
               to="/chat"
-              style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+              style={isLinkActive}
             >
               Chat
             </NavLink>
