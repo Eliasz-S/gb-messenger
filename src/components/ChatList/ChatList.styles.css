@@ -1,3 +1,8 @@
 .Chat-link {
     text-decoration: none;
 }
+
+.Chat-add-form {
+    width: 25%;
+    margin-top: 1rem;
+}

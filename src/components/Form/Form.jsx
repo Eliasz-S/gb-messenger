@@ -28,7 +28,7 @@ export const Form = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <TextField sx={{ width: 3/4 }} variant="outlined" size="small" value={value} onChange={handleChange} inputRef={inputRef} />
-            <Button sx={{ width: 1/4, height: 40 }} type="submit" variant="contained">Send</Button>
+            <Button sx={{ width: 1/4, height: 40 }} type="submit" variant="contained">Submit</Button>
         </form>
     )
 }
