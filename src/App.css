@@ -53,9 +53,9 @@
 }
 
 .App-chat-section {
-  position: relative;
-  bottom: 19rem;
-  left: 25rem;
+  position: absolute;
+  top: 23%;
+  left: 27%;
   text-align: left;
   width: 35rem;
 }
