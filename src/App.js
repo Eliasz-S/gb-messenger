@@ -1,46 +1,19 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Chat } from './screens/Chat/Chat';
-import { ChatList } from './components/ChatList/ChatList';
-import { isLinkActive } from './components/utils/styles';
+import { ChatListContainer } from './components/ChatList/ChatListContainer';
+import { Header } from './components/Header/Header';
 import { Home } from './screens/Home/Home';
 import { Profile } from './screens/Profile/Profile';
 
 function App() {
   return (
     <BrowserRouter>
-      <header className='App-header'>
-        <ul>
-          <li>
-            <NavLink 
-              to="/"
-              style={isLinkActive}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink 
-              to="/chat"
-              style={isLinkActive}
-            >
-              Chat
-            </NavLink>
-          </li>
-          <li>
-            <NavLink 
-              to="/profile"
-              style={isLinkActive}
-            >
-              Profile
-            </NavLink>
-          </li>
-        </ul>
-      </header>
+      <Header />
       <Routes> 
         <Route path='/' element={<Home />} />
-        <Route path='/chat' element={<ChatList />}>
+        <Route path='/chat' element={<ChatListContainer />}>
           <Route path=':id' element={<Chat />} />
         </Route>
         <Route path='/profile' element={<Profile />} />
@@ -48,6 +21,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;

@@ -7,6 +7,7 @@ export const Profile = () => {
     const dispatch = useDispatch()
     const name = useSelector(selectName); // useSelector принимает импортированный селектор
     const showName = useSelector(selectShowName);
+    
     const handleCheckbox = () => {
         dispatch(toggleCheckbox);
     };
