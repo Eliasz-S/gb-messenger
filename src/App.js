@@ -6,6 +6,7 @@ import { ChatListContainer } from './components/ChatList/ChatListContainer';
 import { Header } from './components/Header/Header';
 import { Home } from './screens/Home/Home';
 import { Profile } from './screens/Profile/Profile';
+import { Articles } from './screens/Articles/Articles';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path=':id' element={<Chat />} />
         </Route>
         <Route path='/profile' element={<Profile />} />
+        <Route path='/articles' element={<Articles />} />
       </Routes>
     </BrowserRouter>
   );

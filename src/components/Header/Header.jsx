@@ -30,6 +30,14 @@ export const Header = () => {
               Profile
             </NavLink>
           </li>
+          <li>
+            <NavLink 
+              to="/articles"
+              style={isLinkActive}
+            >
+              Articles
+            </NavLink>
+          </li>
         </ul>
       </header>
     );
