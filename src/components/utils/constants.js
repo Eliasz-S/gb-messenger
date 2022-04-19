@@ -26,3 +26,12 @@ export const initialMessageState = initialChatState.reduce((acc, chat) => {
     acc[chat.id] = [];
     return acc;
 }, {});
+
+export const apiUrl = 'https://inshortsapi.vercel.app/news?category=sports';
+
+export const FETCH_STATUSES = {
+  IDLE: 'idle',
+  REQUEST: 'request',
+  FAILURE: 'failure',
+  SUCCESS: 'success',
+}
