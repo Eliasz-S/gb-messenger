@@ -1,33 +1,40 @@
+import { Button } from "@mui/material";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../components/Form/Form";
-import { usePrevious } from "../../components/utils/usePrevious";
-import { setName, toggleCheckbox } from "../../store/profile/actions";
+import { logOut } from "../../services/firebase";
+import { initProfileTrack, setNameFB, setShowNameFB, stopProfileTrack } from "../../store/profile/actions";
 import { selectName, selectShowName } from "../../store/profile/selectors";
 
 export const Profile = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    
     const name = useSelector(selectName); // useSelector принимает импортированный селектор
     const showName = useSelector(selectShowName);
-
-    const previousName = usePrevious(name);
-
-    console.log(previousName);
     
     const handleCheckbox = () => {
-        dispatch(toggleCheckbox);
+        dispatch(setShowNameFB(!showName));
+        console.log(showName);
     };
 
     const handleSubmit = (text) => {
-        dispatch(setName(text));
+        dispatch(setNameFB(text));
     };
+
+    useEffect(() => {
+        dispatch(initProfileTrack());
+
+        return () => {
+            dispatch(stopProfileTrack());
+        };
+    }, []);
 
     return (
         <>
             <h3>This is your profile page</h3>
+            <Button onClick={logOut} variant="outlined" >Logout</Button>
             <div style={ {height: 40} }>
                 {showName && <span>{name}</span>}
-                <br />
-                {previousName && <span>Предыдущим именем было: {previousName}</span>}
             </div>
             <div>
                 <input id="toggle_name" type="checkbox" onChange={handleCheckbox}/>

@@ -1,31 +1,38 @@
-import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { onValue, push } from "firebase/database";
+import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Form } from "../../components/Form/Form";
 import { MessageList } from "../../components/MessageList/MessageList";
-import { AUTHORS } from "../../components/utils/constants";
-import { addMessageWithReply } from "../../store/messages/actions";
-import { selectMessagesByChatId } from "../../store/messages/selectors";
-
+import { auth, getMessagesListRefById, getMessagesRefById } from "../../services/firebase";
 export function Chat() {
+
   const { id } = useParams();
 
-  const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
-  const messages = useSelector(getMessages);
-  const dispatch = useDispatch();
+  const [messages, setMessages] = useState([]);
 
   const sendMessage = (text) => {
-    dispatch(
-      addMessageWithReply(
-        {
-          author: AUTHORS.human,
-          text,
-          id: `msg-${Date.now()}`,
-        }, 
-        id
-      )
-    ); 
+    push(getMessagesListRefById(id), {
+      author: auth.currentUser.email,
+      text,
+      id: `msg-${Date.now()}`,
+    });
   };
+
+  useEffect(() => {
+    const unsubscribe = onValue(getMessagesRefById(id), (snapshot) => {
+      console.log(snapshot.val());
+      const val = snapshot.val();
+
+      if(!val?.exists) {
+        setMessages(null);
+      } else {
+        console.log(val.messageList);
+        setMessages(Object.values(val.messageList || {}));
+      }
+    });
+
+    return unsubscribe;
+  }, [id]);
 
   if (!messages) {
     return (
@@ -41,4 +48,5 @@ export function Chat() {
       </div>
     </React.Fragment>
   );
+
 }
