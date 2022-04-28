@@ -27,7 +27,7 @@ export const Profile = () => {
         return () => {
             dispatch(stopProfileTrack());
         };
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
