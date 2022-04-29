@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Chat } from "../Chat/Chat";
 import { Form } from "../Form/Form";
 import { isLinkActive } from "../utils/styles";
@@ -21,8 +21,6 @@ export const ChatList = ({ chats, handleSubmit, handleDeleteChat }) => {
             <div className='Chat-add-form'>
                 <Form onSubmit={handleSubmit} />
             </div>
-
-            <Outlet />
         </>
     );
 };

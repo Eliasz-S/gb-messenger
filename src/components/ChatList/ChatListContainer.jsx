@@ -3,6 +3,7 @@ import { ChatList } from './ChatList';
 import { useEffect, useState } from 'react';
 import { onValue, remove, set } from 'firebase/database';
 import { chatsRef, getChatRefById, getMessagesRefById } from '../../services/firebase';
+import { Outlet } from 'react-router-dom';
 
 export const ChatListContainer = () => {
 
@@ -38,8 +39,15 @@ export const ChatListContainer = () => {
         return unsubscribe;
     }, []);
 
-    return <ChatList 
-        chats={chats} 
-        handleSubmit={handleSubmit} 
-        handleDeleteChat={handleDeleteChat} />
+    return (
+        <>
+            <ChatList 
+            chats={chats} 
+            handleSubmit={handleSubmit} 
+            handleDeleteChat={handleDeleteChat} />
+
+            <Outlet />
+        </>
+        
+    )
 }
